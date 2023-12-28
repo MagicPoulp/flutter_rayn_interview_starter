@@ -4,7 +4,10 @@
 You will have to implement a tic-tac-toe game.
 This test should not take more than 4 hours.
 
-## Specifications
+## Implementation
+In order to perform the test, please *fork the project and give us access to this repository with your modifications.
+
+## Instructions
 Below the list of requirements : 
 
     1. 2 players / 1 symbol by player
