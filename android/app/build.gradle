@@ -26,9 +26,10 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 34
     namespace "com.automata.mobile_app_interview"
-    compileSdkVersion flutter.compileSdkVersion
+    // hardcoding to ignore the build error, it is because compileSdkVersion is not 34 in flutter.groovy
+    //compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
