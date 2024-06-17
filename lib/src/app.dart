@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'views/main_view.dart';
+import 'theme/theme.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -49,42 +49,10 @@ class MyApp extends StatelessWidget {
       // Define a light and dark color theme. Then, read the user's
       // preferred ThemeMode (light, dark, or system default) from the
       // SettingsController to display the correct theme.
-      theme: ThemeData(useMaterial3: true,
-        colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.black,
-          // blue for the app bar
-          secondary: Color(0xFF2196f3), // found with gimp
-          // red button
-          onSecondary: Color(0xFFf44336), // found with gimp
-          // blue button
-          onSecondaryContainer: Color(0xFF2196f3), // found with gimp
-          // blue text
-          tertiary: Color(0xFF2196f3), // found with gimp
-          // black text for players
-          onTertiary: Color(0xFF202020), // found with gimp
-          // not exact white for the background
-          background: Color(0xFFfafafa), // found with gimp
-
-          onPrimary: Colors.black,
-          error: Colors.deepOrangeAccent,
-          onError: Colors.deepOrangeAccent,
-          onBackground: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.white,
-        ),
-        textTheme: TextTheme(
-          // for the app bar
-          headlineMedium: GoogleFonts.roboto(
-            textStyle: TextStyle(color: Theme.of(context).colorScheme.background, letterSpacing: .5),
-          ),
-          // for buttons
-          headlineSmall: GoogleFonts.lato(
-            textStyle: TextStyle(color: Theme.of(context).colorScheme.background),
-          ),
-        ),
-      ),
-      //darkTheme: ThemeData.dark(),
+      // we do not use a theme were, we use static values, as explained in
+      // the file theme.dart
+      theme: ThemeData(),
+      //darkTheme: ThemeData.dark(), // no dark mode yet
 
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.

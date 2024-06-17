@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'game_view.dart';
+import '../theme/theme.dart';
 
 class MainView extends StatelessWidget {
   const MainView({
@@ -15,12 +17,16 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 80,
         title: Text('Tic Tac Toe',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: MyTextTheme.appBarText,
         ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.secondary
+        backgroundColor: MyColorTheme.appBar
       ),
-      body: const GameView(),
+      backgroundColor: MyColorTheme.closeToWhiteBackground,
+      body: const SizedBox(
+        width: double.infinity,
+        child: GameView(),
+      )
     );
   }
 }

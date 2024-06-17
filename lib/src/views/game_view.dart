@@ -17,12 +17,15 @@ class GameView extends StatelessWidget {
     // Instantiate your class using Get.put() to make it available for all "child" routes there.
     final GameViewStateContainer mainStateContainer = Get.put(GameViewStateContainer());
 
-    return const Column(
-      children: [
-        ScoreBannerView(),
-        GameGridView(),
-        PlayerInteractionView()
-      ]
+    return Container(
+        margin: const EdgeInsets.all(4),
+        child: const Column(
+            children: [
+              ScoreBannerView(),
+              GameGridView(),
+              PlayerInteractionView()
+            ]
+      )
     );
   }
 }
