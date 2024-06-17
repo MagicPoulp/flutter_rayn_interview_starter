@@ -15,6 +15,7 @@ class MyColorTheme {
   static const Color redTextWinner = Color(0xFFf44336);
   static const Color closeToBlack = Color(0xFF202020);
   static const Color closeToWhiteBackground = Color(0xFFfafafa);
+  static const Color gridBorder = Color(0xFF9e9e9e);
 }
 
 class MyTextTheme {

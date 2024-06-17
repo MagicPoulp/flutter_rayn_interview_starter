@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
-
-// TODO use SVG assets and use the library flutter_svg so that images look better
-var crossImage = Image.asset('assets/images/cross1.png');
-var circleImage = Image.asset('assets/images/circle1.png');
+import '../reusable_components/assets.dart';
 
 class PlayerBadgeView extends StatelessWidget {
   const PlayerBadgeView({
@@ -24,8 +21,8 @@ class PlayerBadgeView extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SizedBox(
-                width: 40,
-                height: 40,
+                width: 35,
+                height: 35,
                 child: image
             ),
           ),

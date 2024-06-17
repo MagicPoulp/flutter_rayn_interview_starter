@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'game_view.dart';
 import '../theme/theme.dart';
@@ -14,6 +13,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 80,
         title: Text('Tic Tac Toe',
@@ -23,9 +23,13 @@ class MainView extends StatelessWidget {
         backgroundColor: MyColorTheme.appBar
       ),
       backgroundColor: MyColorTheme.closeToWhiteBackground,
-      body: const SizedBox(
+      body: const SingleChildScrollView(
+        // TODO: detect the overflow, and only then enable scrolling in physics
+        // physics: NeverScrollableScrollPhysics(),
+        child: SizedBox(
         width: double.infinity,
         child: GameView(),
+    ),
       )
     );
   }

@@ -20,11 +20,12 @@ class GameView extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.all(4),
         child: const Column(
-            children: [
-              ScoreBannerView(),
-              GameGridView(),
-              PlayerInteractionView()
-            ]
+          // by default, MainAxisAlignment = MainAxisAlignment.start,
+          children: [
+            ScoreBannerView(),
+            GameGridView(),
+            PlayerInteractionView()
+          ]
       )
     );
   }
