@@ -13,7 +13,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 80,
         title: Text('Tic Tac Toe',
@@ -23,6 +23,7 @@ class MainView extends StatelessWidget {
         backgroundColor: MyColorTheme.appBar
       ),
       backgroundColor: MyColorTheme.closeToWhiteBackground,
+      // this scroll view is needed in case there is an overflow
       body: const SingleChildScrollView(
         // TODO: detect the overflow, and only then enable scrolling in physics
         // physics: NeverScrollableScrollPhysics(),

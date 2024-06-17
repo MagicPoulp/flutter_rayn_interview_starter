@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../state/game_view_state_container.dart';
 import '../theme/theme.dart';
 import '../reusable_components/assets.dart';
 
@@ -41,9 +43,11 @@ class PlayerBadgeView extends StatelessWidget {
 
 
 class ScoreBannerView extends StatelessWidget {
-  const ScoreBannerView({
+  ScoreBannerView({
     super.key,
   });
+
+  final GameViewStateContainer gameViewStateContainer = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +55,11 @@ class ScoreBannerView extends StatelessWidget {
         children: [
           Expanded(
             flex:50,
-            child: PlayerBadgeView(image: crossImage, name: 'Player 1', score: 1),
+            child: Obx(() => PlayerBadgeView(image: crossImage, name: 'Player 1', score: gameViewStateContainer.scorePlayer1.value)),
           ),
           Expanded(
             flex:50,
-            child: PlayerBadgeView(image: circleImage, name: 'Player 2', score: 1),
+            child: Obx(() => PlayerBadgeView(image: circleImage, name: 'Player 2', score: gameViewStateContainer.scorePlayer2.value)),
           ),
         ]
     );
