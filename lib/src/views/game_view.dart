@@ -15,7 +15,7 @@ class GameView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // Instantiate your class using Get.put() to make it available for all "child" routes there.
-    final GameViewStateContainer gameViewStateContainer = Get.put(GameViewStateContainer());
+    Get.put(GameViewStateContainer());
 
     return Container(
         margin: const EdgeInsets.all(4),

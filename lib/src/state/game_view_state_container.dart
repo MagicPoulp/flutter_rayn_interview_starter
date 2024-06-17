@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'dart:math';
 
 enum GridCellState { empty, cross, circle }
@@ -12,9 +13,11 @@ class CellPosition {
 
 class GameViewStateContainer extends GetxController {
   GameViewStateContainer() {
-    resetHistory();
+    retrieveHistoryData();
   }
+
   var whichPlayerShouldPlay = 1.obs;
+  var lastStartingPlayer = 1;
   var scorePlayer1 = 0.obs;
   var scorePlayer2 = 0.obs;
   List<List<Rx<GridCellState>>> gridCells =  List.generate(
@@ -44,8 +47,12 @@ class GameViewStateContainer extends GetxController {
     // 1 and 2 are permuted
     whichPlayerShouldPlay.value = 3 - whichPlayerShouldPlay.value;
     detectWinOrStuck();
+    storeHistoryData();
   }
 
+  // TODO we can improve game stuck detection. Currenbtly we only detect stuck games that have no empty cells
+  // TODO we could guess in advance if no more scenarios can lead to winning
+  // TODO for example if there is only one or 2 empty cells, there are scnearios that are stuck and that we do not detect yet
   void detectWinOrStuck() {
     getPlayerFromStateImage(GridCellState state) => state == GridCellState.cross ? 1 : 2;
 
@@ -55,6 +62,7 @@ class GameViewStateContainer extends GetxController {
     || (gridCells[2][0].value == gridCells[1][1].value && gridCells[2][0].value == gridCells[0][2].value))) {
       int winnerPlayer = getPlayerFromStateImage(gridCells[1][1].value);
       declareWinner(winnerPlayer);
+      return;
     }
 
     bool found = checkInOneDirection(isInverted: false);
@@ -122,6 +130,7 @@ class GameViewStateContainer extends GetxController {
     clearGrid();
     onePlayerWon.value = false;
     isGameStuck.value = false;
+    eraseHistoryData();
   }
 
   void clearGrid() {
@@ -134,14 +143,55 @@ class GameViewStateContainer extends GetxController {
 
   void newGame() {
     clearGrid();
+    if (onePlayerWon.value || isGameStuck.value) {
+      // 1 and 2 are permuted
+      whichPlayerShouldPlay.value = 3 - lastStartingPlayer;
+      lastStartingPlayer = 3 - lastStartingPlayer;
+    }
     onePlayerWon.value = false;
     isGameStuck.value = false;
-    // 1 and 2 are permuted
-    whichPlayerShouldPlay.value = 3 - whichPlayerShouldPlay.value;
   }
 
   int randomNumberZeroOrOne() {
     Random random = Random(DateTime.now().millisecondsSinceEpoch);
     return random.nextInt(2); // from 0 up to 1 included
+  }
+
+  void eraseHistoryData() {
+    final box = GetStorage();
+    box.erase();
+  }
+
+  void storeHistoryData() {
+    final box = GetStorage();
+    box.write('scorePlayer1', scorePlayer1.value);
+    box.write('scorePlayer2', scorePlayer2.value);
+    box.write('lastStartingPlayer', lastStartingPlayer);
+    // get_storage is very lightweight and simple (less memory than a database)
+    // but a database like SQLite or Realm could be more powerful (for real queries)
+    /*
+    // we could add all variables below in this data storage
+    var whichPlayerShouldPlay = 1.obs;
+    var scorePlayer1 = 0.obs;
+    var scorePlayer2 = 0.obs;
+    List<List<Rx<GridCellState>>> gridCells
+    var onePlayerWon = false.obs;
+    var winnerIndexIfWon = 1;
+    var isGameStuck = false.obs;*/
+  }
+
+  void retrieveHistoryData() {
+    final box = GetStorage();
+    getValue(String key, Function fun) {
+      var dyn = box.read(key);
+      // key is not found
+      if (dyn.runtimeType == Null) {
+        return;
+      }
+      fun(dyn);
+    }
+    getValue('scorePlayer1', (dynamic dyn) { scorePlayer1.value = dyn; });
+    getValue('scorePlayer2', (dynamic dyn) { scorePlayer2.value = dyn; });
+    getValue('lastStartingPlayer', (dynamic dyn) { lastStartingPlayer = dyn; });
   }
 }

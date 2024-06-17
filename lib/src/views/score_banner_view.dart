@@ -41,7 +41,6 @@ class PlayerBadgeView extends StatelessWidget {
   }
 }
 
-
 class ScoreBannerView extends StatelessWidget {
   ScoreBannerView({
     super.key,
